@@ -39,9 +39,9 @@ class APIManager: SessionManager {
                     failure(error)
                 } else if let user = user {
                     print("Welcome \(user.name)")
-                    
+                    User.init(dictionary: ["name" : user.name])
                     // MARK: TODO: set User.current, so that it's persisted
-                    
+                    User.current = user
                     success()
                 }
             })
