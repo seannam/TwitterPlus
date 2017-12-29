@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class TweetCell: UITableViewCell {
     
@@ -17,17 +18,23 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var screenameLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     
+    @IBOutlet weak var retweetLabel: UILabel!
+    @IBOutlet weak var favCountLabel: UILabel!
+    
+    
     var tweet: Tweet! {
         didSet {
             tweetTextLabel.text = tweet.text
             usernameLabel.text = tweet.user.name
-            screenameLabel.text = tweet.user.screenname
+            screenameLabel.text = "@\(tweet.user.screenname)"
             timestampLabel.text = tweet.createdAtString
             
-            if tweet.user.profileImageUrlString != nil {
-                let profileImageURL = URL(string: tweet.user.profileImageUrlString)
-                //profileImageView.setImageWith(profileImageURL)
+            if let profileImageUrl = tweet.user.profileUrl {
+                profileImageView.af_setImage(withURL: profileImageUrl)
             }
+            
+            retweetLabel.text = String(tweet.retweetCount)
+            favCountLabel.text = String(describing: tweet.favoriteCount!)
         }
     }
     
