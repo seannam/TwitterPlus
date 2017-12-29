@@ -97,7 +97,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I love tweeting!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epC-Fs-Q5Z">
-                                                    <rect key="frame" x="62" y="48" width="98" height="17"/>
+                                                    <rect key="frame" x="62" y="48" width="297" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -139,6 +139,7 @@
                                                 <constraint firstItem="1po-b1-RUd" firstAttribute="top" secondItem="epC-Fs-Q5Z" secondAttribute="bottom" constant="8" id="F7B-JG-duS"/>
                                                 <constraint firstItem="p6g-4q-b1i" firstAttribute="baseline" secondItem="XyM-fd-Bdf" secondAttribute="baseline" id="MDd-fN-rnB"/>
                                                 <constraint firstItem="XyM-fd-Bdf" firstAttribute="leading" secondItem="UUI-rU-FEx" secondAttribute="trailing" constant="4" id="OJp-gJ-aX6"/>
+                                                <constraint firstAttribute="trailing" secondItem="epC-Fs-Q5Z" secondAttribute="trailing" constant="16" id="PJc-hx-Z6e"/>
                                                 <constraint firstItem="jDs-6K-X1f" firstAttribute="baseline" secondItem="1po-b1-RUd" secondAttribute="baseline" id="RDh-nl-68H"/>
                                                 <constraint firstItem="UUI-rU-FEx" firstAttribute="top" secondItem="zd2-Er-659" secondAttribute="top" constant="8" id="UNb-yX-V60"/>
                                                 <constraint firstItem="epC-Fs-Q5Z" firstAttribute="top" secondItem="Dr6-wG-HR5" secondAttribute="bottom" constant="4" id="XRX-jr-wqs"/>
@@ -151,8 +152,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="handleLabel" destination="p6g-4q-b1i" id="0sk-Xs-WoX"/>
                                             <outlet property="profileImageView" destination="UUI-rU-FEx" id="DWr-YD-hBj"/>
+                                            <outlet property="screenameLabel" destination="p6g-4q-b1i" id="699-kM-ahz"/>
                                             <outlet property="timestampLabel" destination="Dr6-wG-HR5" id="mqH-42-UDW"/>
                                             <outlet property="tweetTextLabel" destination="epC-Fs-Q5Z" id="ZLP-IG-Wsf"/>
                                             <outlet property="usernameLabel" destination="XyM-fd-Bdf" id="QnX-7Y-NXv"/>

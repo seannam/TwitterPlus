@@ -11,12 +11,17 @@ import Foundation
 class User {
     
     var name: String
+    var screenname: String
+    var profileImageUrlString: String
+    
     var dictionary: [String: Any]?
     private static var _current: User?
     
     init(dictionary: [String: Any]) {
         self.dictionary = dictionary
         name = dictionary["name"] as! String
+        screenname = dictionary["screenname"] as! String
+        profileImageUrlString = dictionary[profile_image_url] as! String
     }
     
     static var current: User? {
