@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -176,15 +178,21 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         APIManager.shared.logout()
     }
     
-    
-    /*
      // MARK: - Navigation
-     
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+        let destinationVC = segue.destination as! ComposeViewController
+        destinationVC.delegate = self
+
+//        if let profileImageUrl = User.current?.profileUrl {
+//            destinationVC.profileImageView.af_setImage(withURL: profileImageUrl)
+//        }
      }
-     */
     
+}
+
+extension TimelineViewController: ComposeViewControllerDelegate {
+    func did(post: Tweet) {
+        dismiss(animated: true, completion: nil)
+    }
 }
