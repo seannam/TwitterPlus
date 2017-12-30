@@ -101,14 +101,14 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         print("retweet status: \(tweet.favorited!)")
         
         if tweet.retweeted == false {
-            
             APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
                 if let  error = error {
                     print("Error retweeting tweet: \(error.localizedDescription)")
                 } else if let tweet = tweet {
                     print("Successfully retweeted the following Tweet: \n\(tweet.text)")
-                    self.tweets[indexPath!.row].favoriteCount += 1
-                    tweet.favorited = true
+                    self.tweets[indexPath!.row].retweetCount += 1
+                    self.tweets[indexPath!.row].retweeted = true
+                    cell.retweetButton.setImage(UIImage(named: "retweet-icon-green"), for: .normal)
                     self.tableView.reloadData()
                 }
             }
@@ -118,8 +118,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
                     print("Error unretweeting tweet: \(error.localizedDescription)")
                 } else if let tweet = tweet {
                     print("Successfully unretweeted the following Tweet: \n\(tweet.text)")
-                    self.tweets[indexPath!.row].favoriteCount -= 1
-                    tweet.favorited = true
+                    self.tweets[indexPath!.row].retweetCount -= 1
+                    self.tweets[indexPath!.row].retweeted = false
+                    cell.retweetButton.setImage(UIImage(named: "retweet-icon"), for: .normal)
                     self.tableView.reloadData()
                 }
             }
@@ -140,9 +141,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         cell.tweet = tweet
         
         if tweet.retweeted {
-            cell.retweetButton.setImage(UIImage(named: "retweet-icon-green"), for: UIControlState.normal)
+            cell.retweetButton.setImage(UIImage(named: "retweet-icon-green"), for: .normal)
         } else {
-            cell.retweetButton.setImage(UIImage(named: "retweet-icon"), for: UIControlState.normal)
+            cell.retweetButton.setImage(UIImage(named: "retweet-icon"), for: .normal)
         }
         
         if tweet.favorited! {
