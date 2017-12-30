@@ -50,14 +50,103 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    @IBAction func didTapFav(_ sender: Any) {
+        print("didTapFav")
+        
+        let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! TweetCell
+        let indexPath = tableView.indexPath(for: cell)
+        let tweet = tweets[indexPath!.row]
+
+        print("fav status: \(tweet.favorited!)")
+        
+        if tweet.favorited! == false {
+            APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
+                if let  error = error {
+                    print("Error favoriting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully favorited the following Tweet: \n\(tweet.text)")
+                    self.tweets[indexPath!.row].favoriteCount += 1
+                    tweet.favorited = true
+                    self.tableView.reloadData()
+                }
+            }
+        } else {
+            APIManager.shared.unfavorite(tweet) { (tweet: Tweet?, error: Error?) in
+                if let  error = error {
+                    print("Error unfavoriting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+                    self.tweets[indexPath!.row].favoriteCount -= 1
+                    tweet.favorited = true
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+    }
+    
+    @IBAction func didTapRetweet(_ sender: Any) {
+        print("didTapRetweet")
+        let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! TweetCell
+        let indexPath = tableView.indexPath(for: cell)
+        let tweet = tweets[indexPath!.row]
+        
+        print("retweet status: \(tweet.favorited!)")
+        
+        if tweet.retweeted == false {
+            
+            APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
+                if let  error = error {
+                    print("Error retweeting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully retweeted the following Tweet: \n\(tweet.text)")
+                    self.tweets[indexPath!.row].favoriteCount += 1
+                    tweet.favorited = true
+                    self.tableView.reloadData()
+                }
+            }
+        } else {
+            APIManager.shared.unretweet(tweet) { (tweet: Tweet?, error: Error?) in
+                if let  error = error {
+                    print("Error unretweeting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully unretweeted the following Tweet: \n\(tweet.text)")
+                    self.tweets[indexPath!.row].favoriteCount -= 1
+                    tweet.favorited = true
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    @IBAction func didTapReply(_ sender: Any) {
+         print("didTapReply")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        let tweet = tweets[indexPath.row]
+        cell.tweet = tweet
         
-        cell.tweet = tweets[indexPath.row]
+//        if tweet.retweeted {
+//            cell.retweetButton.setImage(UIImage(named: "retweeted-icon-green"), for: UIControlState())
+//        } else {
+//            cell.retweetButton.setImage(UIImage(named: "retweeted-icon"), for: UIControlState())
+//        }
+        
+        if tweet.favorited! {
+            cell.favTweetbutton.setImage(UIImage(named: "favor-icon-red"), for: UIControlState())
+        } else {
+            cell.favTweetbutton.setImage(UIImage(named: "favor-icon"), for: UIControlState())
+        }
         
         return cell
     }

@@ -21,6 +21,9 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var favCountLabel: UILabel!
     
+    @IBOutlet weak var favTweetbutton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    
     
     var tweet: Tweet! {
         didSet {
@@ -34,7 +37,13 @@ class TweetCell: UITableViewCell {
             }
             
             retweetLabel.text = String(tweet.retweetCount)
-            favCountLabel.text = String(describing: tweet.favoriteCount!)
+            favCountLabel.text = String(tweet.favoriteCount)
+
+            if tweet.favorited! == true {
+                favTweetbutton.setImage(UIImage(named: "favor-icon-red"), for: UIControlState())
+            } else {
+                favTweetbutton.setImage(UIImage(named: "favor-icon"), for: UIControlState())
+            }
         }
     }
     
@@ -51,10 +60,5 @@ class TweetCell: UITableViewCell {
     
     @IBAction func onReplyButton(_ sender: Any) {
     }
-    
-    @IBAction func onRetweetButton(_ sender: Any) {
-    }
-    
-    @IBAction func onFavButton(_ sender: Any) {
-    }
+
 }
