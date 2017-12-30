@@ -44,6 +44,12 @@ class TweetCell: UITableViewCell {
             } else {
                 favTweetbutton.setImage(UIImage(named: "favor-icon"), for: UIControlState())
             }
+            
+            if tweet.retweeted {
+                retweetButton.setImage(UIImage(named: "retweeted-icon-green"), for: UIControlState())
+            } else {
+                retweetButton.setImage(UIImage(named: "retweeted-icon"), for: UIControlState())
+            }
         }
     }
     

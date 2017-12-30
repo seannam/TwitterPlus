@@ -68,7 +68,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
                 } else if let tweet = tweet {
                     print("Successfully favorited the following Tweet: \n\(tweet.text)")
                     self.tweets[indexPath!.row].favoriteCount += 1
-                    tweet.favorited = true
+                    //tweet.favorited = true
+                    self.tweets[indexPath!.row].favorited = true
+                    cell.favTweetbutton.setImage(UIImage(named: "favor-icon-red"), for: .normal)
                     self.tableView.reloadData()
                 }
             }
@@ -79,7 +81,8 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
                 } else if let tweet = tweet {
                     print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
                     self.tweets[indexPath!.row].favoriteCount -= 1
-                    tweet.favorited = true
+                    self.tweets[indexPath!.row].favorited = false
+                    cell.favTweetbutton.setImage(UIImage(named: "favor-icon"), for: .normal)
                     self.tableView.reloadData()
                 }
             }
@@ -136,16 +139,16 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         let tweet = tweets[indexPath.row]
         cell.tweet = tweet
         
-//        if tweet.retweeted {
-//            cell.retweetButton.setImage(UIImage(named: "retweeted-icon-green"), for: UIControlState())
-//        } else {
-//            cell.retweetButton.setImage(UIImage(named: "retweeted-icon"), for: UIControlState())
-//        }
+        if tweet.retweeted {
+            cell.retweetButton.setImage(UIImage(named: "retweet-icon-green"), for: UIControlState.normal)
+        } else {
+            cell.retweetButton.setImage(UIImage(named: "retweet-icon"), for: UIControlState.normal)
+        }
         
         if tweet.favorited! {
-            cell.favTweetbutton.setImage(UIImage(named: "favor-icon-red"), for: UIControlState())
+            cell.favTweetbutton.setImage(UIImage(named: "favor-icon-red"), for: .normal)
         } else {
-            cell.favTweetbutton.setImage(UIImage(named: "favor-icon"), for: UIControlState())
+            cell.favTweetbutton.setImage(UIImage(named: "favor-icon"), for: .normal)
         }
         
         return cell
@@ -153,6 +156,13 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let tweet = tweets[indexPath.row]
+        print("tweet text: \(tweet.text)")
+        print("retweet status: \(tweet.retweeted)")
+        print("retweet count: \(tweet.retweetCount)")
+        print("favorite status: \(tweet.favorited!)")
+        print("favorite count: \(tweet.favoriteCount)")
     }
     
     override func didReceiveMemoryWarning() {
